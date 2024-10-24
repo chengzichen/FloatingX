@@ -26,6 +26,17 @@ object FloatingX {
         install(FxAppHelper.builder().apply(obj).build())
 
     /**
+     * 全局浮窗操作控制器
+     *
+     * @param tag 浮窗tag,默认是 [FX_DEFAULT_TAG]
+     */
+    @JvmStatic
+    @JvmOverloads
+    fun control(tag: String = FX_DEFAULT_TAG): IFxAppControl {
+        return getTagFxControl(tag)
+    }
+
+    /**
      * 安装一个新的全局浮窗
      *
      * 如果你需要多个浮窗，记得调用AppHelper.setTag()方法，设置浮窗tag，如果没有调用setTag()方法，则默认tag为[FX_DEFAULT_TAG]
@@ -44,17 +55,6 @@ object FloatingX {
         fxAppControlImp.initProvider()
         fxs[helper.tag] = fxAppControlImp
         return fxAppControlImp
-    }
-
-    /**
-     * 全局浮窗操作控制器
-     *
-     * @param tag 浮窗tag,默认是 [FX_DEFAULT_TAG]
-     */
-    @JvmStatic
-    @JvmOverloads
-    fun control(tag: String = FX_DEFAULT_TAG): IFxAppControl {
-        return getTagFxControl(tag)
     }
 
     /**

@@ -1,7 +1,9 @@
 package com.petterp.floatingx.view.helper
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import com.petterp.floatingx.util.DEFAULT_MOVE_ANIMATOR_DURATION
+import com.petterp.floatingx.view.FxBasicContainerView
 
 /**
  * Fx动画助手，处理移动等动画
@@ -37,6 +39,26 @@ class FxViewAnimationHelper : FxViewBasicHelper() {
                     val y = calculationNumber(startY, endY, fraction)
                     basicView?.updateXY(x, y)
                 }
+               addListener(object : Animator.AnimatorListener {
+                    override fun onAnimationRepeat(animation: Animator?) {}
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        config?.iFxTouchListener?.OnDragEnd(endX, endY,
+                            basicView?.isNearestTop(endY) == true,
+                            basicView?.isNearestLeft(endX) == true
+                        )
+                    }
+
+                    override fun onAnimationCancel(animation: Animator?) {
+                        val fxBasicContainerView = config as FxBasicContainerView
+                        config?.iFxTouchListener?.OnDragEnd(endX, endY,
+                            basicView?.isNearestTop(endY) == true, basicView?.isNearestLeft(endX) == true
+                        )
+                    }
+
+                    override fun onAnimationStart(animation: Animator?) {
+                    }
+                })
             }
         }
     }

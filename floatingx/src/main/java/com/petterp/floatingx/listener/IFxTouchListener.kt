@@ -56,5 +56,11 @@ interface IFxTouchListener {
      * @return false  浮窗禁止滑动，事件会传给下一级
      * */
     fun onInterceptTouchEvent(event: MotionEvent, control: IFxInternalHelper?): Boolean = true
+    /**
+     * 浮窗滑动结束
+     * @param endX 浮窗滑动结束后的x坐标
+     * @param endY 浮窗滑动结束后的y坐标
+     * */
+     fun OnDragEnd(endX: Float, endY: Float, nearestTop: Boolean, nearestLeft: Boolean){}
 
 }

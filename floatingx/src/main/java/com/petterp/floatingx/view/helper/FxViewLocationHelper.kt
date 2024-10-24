@@ -211,13 +211,13 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
         config.fxLog.d("fxView -> updateSize: parentW:$parentW,parentH:$parentH,viewW:$viewW,viewH:$viewH")
     }
 
-    private fun isNearestLeft(x: Float): Boolean {
+    public fun isNearestLeft(x: Float): Boolean {
         val middle = parentW / 2
         val viewMiddlePoint = x + viewW / 2
         return viewMiddlePoint < middle
     }
 
-    private fun isNearestTop(y: Float): Boolean {
+    public fun isNearestTop(y: Float): Boolean {
         val middle = parentH / 2
         val viewMiddlePoint = y + viewH / 2
         return viewMiddlePoint < middle

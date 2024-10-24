@@ -204,9 +204,25 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
             animateHelper.start(endX, endY)
         } else {
             updateXY(endX, endY)
+            val nearestTop = isNearestTop(endY)
+            val nearestLeft = isNearestLeft(endX)
+            helper.iFxTouchListener?.OnDragEnd(endX, endY,nearestTop,nearestLeft)
         }
         locationHelper.checkOrSaveLocation(endX, endY)
         helper.fxLog.d("fxView -> moveToXY: start($curX,$curY),end($endX,$endY)")
+
+    }
+    /**
+     * 判断是否为最顶部
+     */
+     fun isNearestTop(endY: Float): Boolean {
+       return locationHelper.isNearestTop(endY)
+    }
+    /**
+     * 判断是否为最左侧
+     */
+     fun isNearestLeft(endX: Float): Boolean {
+      return  locationHelper.isNearestLeft(endX)
     }
 
     internal fun preCancelAction() {

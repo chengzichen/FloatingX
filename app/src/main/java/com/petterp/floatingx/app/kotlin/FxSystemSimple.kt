@@ -1,9 +1,14 @@
 package com.petterp.floatingx.app.kotlin
 
+import android.R.attr.bottom
+import android.R.attr.left
+import android.R.attr.right
+import android.R.attr.top
 import android.app.AlertDialog
 import android.app.Application
+import android.util.Log
 import android.view.MotionEvent
-import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import com.petterp.floatingx.FloatingX
@@ -19,13 +24,14 @@ import com.petterp.floatingx.assist.FxAdsorbDirection
 import com.petterp.floatingx.assist.FxDisplayMode
 import com.petterp.floatingx.assist.FxGravity
 import com.petterp.floatingx.assist.FxScopeType
-import com.petterp.floatingx.compose.enableComposeSupport
 import com.petterp.floatingx.listener.IFxProxyTagActivityLifecycle
 import com.petterp.floatingx.listener.IFxTouchListener
 import com.petterp.floatingx.listener.IFxViewLifecycle
 import com.petterp.floatingx.listener.control.IFxAppControl
-import com.petterp.floatingx.listener.provider.IFxHolderProvider
+import com.petterp.floatingx.view.FxBasicContainerView
 import com.petterp.floatingx.view.FxViewHolder
+import kotlin.math.abs
+
 
 /**
  *
@@ -126,13 +132,34 @@ object FxSystemSimple {
                 override fun onDown() {
 
                 }
-
-                override fun onUp() {
+                override fun OnDragEnd(
+                    x: Float,
+                    y: Float,
+                    nearestTop: Boolean,
+                    nearestLeft: Boolean
+                ) {
                     // 释放
                     appControl?.updateViewContent { holder ->
                         val textView = holder.getViewOrNull<TextView>(R.id.tvItemFx)
-                        textView?.text = "释放"
+                        if(nearestTop){
+                            if(nearestLeft){
+                                textView?.text = "左上"
+                            }else{
+                                textView?.text = "右上"
+                            }
+
+                        }else{
+                            if(nearestLeft){
+                                textView?.text = "左下"
+                            }else{
+                                textView?.text = "右下"
+                            }
+                        }
                     }
+                }
+
+                override fun onUp() {
+
                 }
 
                 override fun onDragIng(event: MotionEvent, x: Float, y: Float) {

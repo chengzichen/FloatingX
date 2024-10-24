@@ -19,9 +19,7 @@ import com.petterp.floatingx.app.addLinearLayout
 import com.petterp.floatingx.app.addNestedScrollView
 import com.petterp.floatingx.app.addTextView
 import com.petterp.floatingx.app.createLinearLayoutToParent
-import com.petterp.floatingx.assist.FxDisplayMode
 import com.petterp.floatingx.listener.IFxTouchListener
-import com.petterp.floatingx.listener.IFxViewLifecycle
 import com.petterp.floatingx.view.IFxInternalHelper
 
 /**
@@ -49,6 +47,15 @@ class SimpleRvActivity : AppCompatActivity() {
                                     ): Boolean {
                                         val isHeader = control?.checkPointerDownTouch(R.id.text, event)
                                         return isHeader ?: true
+                                    }
+
+                                    override fun OnDragEnd(
+                                        endX: Float,
+                                        endY: Float,
+                                        nearestTop: Boolean,
+                                        nearestLeft: Boolean
+                                    ) {
+
                                     }
                                 })
                                 this.setOnClickListener {
