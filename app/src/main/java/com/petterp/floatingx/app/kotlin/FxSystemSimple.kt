@@ -136,7 +136,7 @@ object FxSystemSimple {
                 }
 
                 override fun onDragIng(event: MotionEvent, x: Float, y: Float) {
-                    // 按下
+                    // 拖动
                     appControl?.updateViewContent { holder ->
                         val textView = holder.getViewOrNull<TextView>(R.id.tvItemFx)
                         textView?.text = "我被拖动"
