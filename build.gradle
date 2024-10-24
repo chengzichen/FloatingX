@@ -2,8 +2,8 @@ buildscript {
     apply from: "gradle/config.gradle"
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.2'
-        if (isPublish) classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
-        else classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.20"
+        if (isPublish) classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.4"
+        else classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10"
     }
 }
 
@@ -11,6 +11,6 @@ plugins {
     id 'io.gitlab.arturbosch.detekt' version '1.22.0' apply false
     id "com.vanniktech.maven.publish" version "0.25.3"
     id 'com.android.library' version '7.4.2' apply false
-    id 'org.jetbrains.dokka' version '1.9.20'
-    id 'org.jetbrains.kotlin.android' version '1.9.20' apply false
+    id 'org.jetbrains.dokka' version '1.8.10'
+    id 'org.jetbrains.kotlin.android' version '1.8.10' apply false
 }
