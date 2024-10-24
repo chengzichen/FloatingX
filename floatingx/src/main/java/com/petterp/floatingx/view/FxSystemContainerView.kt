@@ -6,9 +6,12 @@ import android.graphics.PixelFormat
 import android.os.Build
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.WindowManager
+import android.widget.EditText
 import com.petterp.floatingx.assist.helper.FxAppHelper
+import com.petterp.floatingx.util.FxInputHelper
 import com.petterp.floatingx.util.screenHeight
 import com.petterp.floatingx.util.screenWidth
 
@@ -21,10 +24,10 @@ class FxSystemContainerView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
 ) : FxBasicContainerView(helper, context, attrs) {
 
-    private lateinit var wl: WindowManager.LayoutParams
-
     private var downTouchX = 0f
     private var downTouchY = 0f
+    private var isShowKeyBoard = false
+    private lateinit var wl: WindowManager.LayoutParams
 
     val isAttachToWM: Boolean
         get() = windowToken != null
@@ -35,12 +38,11 @@ class FxSystemContainerView @JvmOverloads constructor(
         initWLParams()
     }
 
-    internal fun registerWM(wm: WindowManager) {
-        try {
-            if (isAttachToWM) return
-            wm.addView(this, wl)
-        } catch (e: Throwable) {
-            e.printStackTrace()
+    override fun onInitChildViewEnd(vh: FxViewHolder) {
+        if (!helper.isEnableKeyBoardAdapt) return
+        helper.editTextIds?.forEach {
+            val editView = vh.getViewOrNull<EditText>(it)
+            FxInputHelper.setEditTextAdapt(editView, helper.tag)
         }
     }
 
@@ -83,9 +85,39 @@ class FxSystemContainerView @JvmOverloads constructor(
         return helper.context.screenWidth to helper.context.screenHeight
     }
 
-    internal fun updateFlags(enableHalfHide: Boolean) {
+    override fun dispatchKeyEventPreIme(event: KeyEvent?): Boolean {
+        if (isShowKeyBoard && event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_BACK) {
+            isShowKeyBoard = false
+            updateKeyBoardStatus(false)
+        }
+        return super.dispatchKeyEventPreIme(event)
+    }
+
+    internal fun registerWM(wm: WindowManager) {
+        try {
+            if (isAttachToWM) return
+            wm.addView(this, wl)
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        }
+    }
+
+    internal fun updateEnableHalfStatus(enableHalfHide: Boolean) {
         wl.flags = findFlags(enableHalfHide)
-        wm.updateViewLayout(this, wl)
+        safeUpdateViewLayout(wl)
+    }
+
+    internal fun updateKeyBoardStatus(showKeyBoard: Boolean) {
+        wl.flags = if (showKeyBoard) {
+            isShowKeyBoard = true
+            var flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+            if (helper.enableHalfHide)
+                flags = flags or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            flags
+        } else {
+            findFlags(helper.enableHalfHide)
+        }
+        safeUpdateViewLayout(wl)
     }
 
     private fun findFlags(enableHalfHide: Boolean): Int {
@@ -110,5 +142,10 @@ class FxSystemContainerView @JvmOverloads constructor(
                 WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
             }
         }
+    }
+
+    private fun safeUpdateViewLayout(lp: WindowManager.LayoutParams) {
+        if (!isAttachToWM) return
+        wm.updateViewLayout(this, lp)
     }
 }

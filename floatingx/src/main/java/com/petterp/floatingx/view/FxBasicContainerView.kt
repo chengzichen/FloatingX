@@ -42,9 +42,12 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
     abstract fun onTouchCancel(event: MotionEvent)
     open fun preCheckPointerDownTouch(event: MotionEvent): Boolean = true
 
+    open fun onInitChildViewEnd(vh: FxViewHolder) {}
+
     override val childView: View? get() = _childView
     override val containerView: FrameLayout get() = this
     override val viewHolder: FxViewHolder? get() = _viewHolder
+
 
     open fun initView() {
         helpers.forEach { it.initConfig(this) }
@@ -59,11 +62,11 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
 
     override fun moveLocation(x: Float, y: Float, useAnimation: Boolean) {
         // 需要考虑状态栏的影响
-        moveToXY(x, y, useAnimation)
+        safeMoveToXY(x, y, useAnimation)
     }
 
     override fun moveLocationByVector(x: Float, y: Float, useAnimation: Boolean) {
-        moveToXY(x + currentX(), y + currentY(), useAnimation)
+        safeMoveToXY(x + currentX(), y + currentY(), useAnimation)
     }
 
     override fun checkPointerDownTouch(id: Int, event: MotionEvent): Boolean {
@@ -146,6 +149,7 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
         _childView = inflateLayoutView() ?: inflateLayoutId()
         if (_childView != null) {
             _viewHolder = FxViewHolder(_childView!!)
+            onInitChildViewEnd(_viewHolder!!)
             helper.iFxViewLifecycles.forEach { listener ->
                 listener.initView(_viewHolder!!)
             }
@@ -186,19 +190,26 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
         return view
     }
 
-    private fun moveToXY(x: Float, y: Float, useAnimation: Boolean) {
+    private fun safeMoveToXY(x: Float, y: Float, useAnimation: Boolean) {
         val endX = locationHelper.safeX(x)
         val endY = locationHelper.safeY(y)
-        internalMoveToXY(useAnimation, endX, endY)
-        locationHelper.checkOrSaveLocation(endX, endY)
-        helper.fxLog.d("fxView -> moveToXY: start(${currentX()},${currentY()}),end($endX,$endY)")
+        internalMoveToXY(endX, endY, useAnimation)
     }
 
-    private fun internalMoveToXY(useAnimation: Boolean, endX: Float, endY: Float) {
+    internal fun internalMoveToXY(endX: Float, endY: Float, useAnimation: Boolean = false) {
+        val curX = currentX()
+        val curY = currentY()
+        if (curX == endX && curY == endY) return
         if (useAnimation) {
             animateHelper.start(endX, endY)
         } else {
             updateXY(endX, endY)
         }
+        locationHelper.checkOrSaveLocation(endX, endY)
+        helper.fxLog.d("fxView -> moveToXY: start($curX,$curY),end($endX,$endY)")
+    }
+
+    internal fun preCancelAction() {
+        helpers.forEach { it.onPreCancel() }
     }
 }
