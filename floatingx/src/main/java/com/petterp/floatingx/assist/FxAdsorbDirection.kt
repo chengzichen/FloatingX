@@ -11,4 +11,5 @@ enum class FxAdsorbDirection {
     BOTTOM,
     TOP_OR_BOTTOM,
     LEFT_OR_RIGHT,
+    CORNERS,
 }

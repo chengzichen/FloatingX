@@ -15,6 +15,7 @@ import com.petterp.floatingx.app.test.BlackActivity
 import com.petterp.floatingx.app.test.ImmersedActivity
 import com.petterp.floatingx.app.test.MultipleFxActivity
 import com.petterp.floatingx.app.test.ScopeActivity
+import com.petterp.floatingx.assist.FxAdsorbDirection
 import com.petterp.floatingx.assist.FxDisplayMode
 import com.petterp.floatingx.assist.FxGravity
 import com.petterp.floatingx.assist.FxScopeType
@@ -22,6 +23,8 @@ import com.petterp.floatingx.compose.enableComposeSupport
 import com.petterp.floatingx.listener.IFxProxyTagActivityLifecycle
 import com.petterp.floatingx.listener.IFxTouchListener
 import com.petterp.floatingx.listener.IFxViewLifecycle
+import com.petterp.floatingx.listener.control.IFxAppControl
+import com.petterp.floatingx.listener.provider.IFxHolderProvider
 import com.petterp.floatingx.view.FxViewHolder
 
 /**
@@ -29,8 +32,9 @@ import com.petterp.floatingx.view.FxViewHolder
  * @author petterp
  */
 object FxSystemSimple {
+    var appControl : IFxAppControl?=null
     fun install(context: Application) {
-        FloatingX.install {
+        appControl = FloatingX.install {
             setContext(context)
             setLayout(R.layout.item_floating)
             setScopeType(FxScopeType.SYSTEM_AUTO)
@@ -72,7 +76,7 @@ object FxSystemSimple {
             // 设置启用边缘吸附,默认启用
             setEnableEdgeAdsorption(true)
             // 设置边缘偏移量
-            setEdgeOffset(10f)
+//            setEdgeOffset(10f)
             // 设置启用悬浮窗可屏幕外回弹
             setEnableScrollOutsideScreen(true)
             // 开启历史位置缓存
@@ -82,7 +86,7 @@ object FxSystemSimple {
             // 设置启用动画实现
             setAnimationImpl(FxAnimationImpl())
             // 设置移动边框
-            setBorderMargin(50f, 50f, 50f, 50f)
+//            setBorderMargin(50f, 50f, 50f, 50f)
             /** 指定浮窗可显示的activity方式 */
             // 1.设置是否允许所有activity都进行显示,默认true
             setEnableAllInstall(true)
@@ -94,6 +98,7 @@ object FxSystemSimple {
                 MainActivity::class.java,
                 ImmersedActivity::class.java,
             )
+            setEdgeAdsorbDirection(FxAdsorbDirection.CORNERS)
             // 设置点击事件
             setOnClickListener {
                 Toast.makeText(context, "浮窗被点击", Toast.LENGTH_SHORT).show()
@@ -119,21 +124,31 @@ object FxSystemSimple {
             // 设置滑动监听
             setTouchListener(object : IFxTouchListener {
                 override fun onDown() {
-                    // 按下
+
                 }
 
                 override fun onUp() {
                     // 释放
+                    appControl?.updateViewContent { holder ->
+                        val textView = holder.getViewOrNull<TextView>(R.id.tvItemFx)
+                        textView?.text = "释放"
+                    }
                 }
 
                 override fun onDragIng(event: MotionEvent, x: Float, y: Float) {
-                    // 正在拖动
+                    // 按下
+                    appControl?.updateViewContent { holder ->
+                        val textView = holder.getViewOrNull<TextView>(R.id.tvItemFx)
+                        textView?.text = "我被拖动"
+                    }
                 }
             })
             // 设置是否启用日志
             setEnableLog(BuildConfig.DEBUG)
             // 设置浮窗tag
             setTag(MultipleFxActivity.TAG_1)
-        }.show()
+        }
+
+        appControl?.show()
     }
 }

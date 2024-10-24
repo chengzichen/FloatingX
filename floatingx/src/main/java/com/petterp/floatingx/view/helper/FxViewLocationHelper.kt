@@ -190,6 +190,11 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
                 val moveY = if (isNearestTop) moveBoundary.minH else moveBoundary.maxH
                 moveX to moveY
             }
+            FxAdsorbDirection.CORNERS -> {
+                val moveX = if (isNearestLeft) moveBoundary.minW else moveBoundary.maxW
+                val moveY = if (isNearestTop) moveBoundary.minH else moveBoundary.maxH
+                moveX to moveY
+            }
         }
     }
 
