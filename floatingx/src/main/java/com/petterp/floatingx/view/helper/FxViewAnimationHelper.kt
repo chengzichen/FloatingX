@@ -50,7 +50,6 @@ class FxViewAnimationHelper : FxViewBasicHelper() {
                     }
 
                     override fun onAnimationCancel(animation: Animator?) {
-                        val fxBasicContainerView = config as FxBasicContainerView
                         config?.iFxTouchListener?.OnDragEnd(endX, endY,
                             basicView?.isNearestTop(endY) == true, basicView?.isNearestLeft(endX) == true
                         )
