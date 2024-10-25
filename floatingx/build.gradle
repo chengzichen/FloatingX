@@ -1,13 +1,9 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'com.vanniktech.maven.publish'
     id 'org.jetbrains.dokka'
 }
 
-mavenPublishing {
-    coordinates("io.github.petterpx", "floatingx", version_name)
-}
 
 android {
     namespace 'com.petterp.floatingx'
