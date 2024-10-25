@@ -53,7 +53,8 @@ class SimpleRvActivity : AppCompatActivity() {
                                         endX: Float,
                                         endY: Float,
                                         nearestTop: Boolean,
-                                        nearestLeft: Boolean
+                                        nearestLeft: Boolean,
+                                        isInit: Boolean
                                     ) {
 
                                     }

@@ -136,7 +136,8 @@ object FxSystemSimple {
                     x: Float,
                     y: Float,
                     nearestTop: Boolean,
-                    nearestLeft: Boolean
+                    nearestLeft: Boolean,
+                    isInit: Boolean
                 ) {
                     // 释放
                     appControl?.updateViewContent { holder ->

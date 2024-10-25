@@ -24,7 +24,8 @@ class FxViewTouchHelper : FxViewBasicHelper() {
     private var isEnableClick = true
     private var mLastTouchDownTime = 0L
     private var touchDownId = INVALID_TOUCH_ID
-
+    internal var tmpTouchX = -1f
+    internal var tmpTouchY = -1f
     @SuppressLint("ClickableViewAccessibility")
     override fun initConfig(parentView: FxBasicContainerView) {
         super.initConfig(parentView)
@@ -77,6 +78,8 @@ class FxViewTouchHelper : FxViewBasicHelper() {
         initClickConfig(event)
         touchDownId = event.pointerId
         basicView?.onTouchDown(event)
+        tmpTouchX=event.rawX
+        tmpTouchY=event.rawY
         config.iFxTouchListener?.onDown()
         config.fxLog.d("fxView -> initDownTouch,mainTouchId:$touchDownId")
     }
@@ -119,6 +122,8 @@ class FxViewTouchHelper : FxViewBasicHelper() {
         basicView?.onTouchCancel(event)
         config.iFxTouchListener?.onUp()
         performClickAction()
+        tmpTouchX=-1f
+        tmpTouchY=-1f
         config.fxLog.d("fxView -> mainTouchUp")
     }
 

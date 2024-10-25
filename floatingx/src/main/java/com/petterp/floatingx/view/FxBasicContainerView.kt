@@ -199,14 +199,25 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
     internal fun internalMoveToXY(endX: Float, endY: Float, useAnimation: Boolean = false) {
         val curX = currentX()
         val curY = currentY()
-        if (curX == endX && curY == endY) return
+        if (curX == endX && curY == endY){
+            val nearestTop = isNearestTop(endY)
+            val nearestLeft = isNearestLeft(endX)
+            val tmpTouchX = touchHelper.tmpTouchX
+            val tmpTouchY = touchHelper.tmpTouchY
+            if (tmpTouchX!=-1f&&tmpTouchY!=-1f&&tmpTouchX!=endX&&tmpTouchY!=endY){
+                if (helper.enableEdgeAdsorption){
+                    helper.iFxTouchListener?.OnDragEnd(endX, endY,nearestTop,nearestLeft)
+                }
+            }
+            return
+        }
         if (useAnimation) {
             animateHelper.start(endX, endY)
         } else {
             updateXY(endX, endY)
-            val nearestTop = isNearestTop(endY)
-            val nearestLeft = isNearestLeft(endX)
             if (helper.enableEdgeAdsorption){
+                val nearestTop = isNearestTop(endY)
+                val nearestLeft = isNearestLeft(endX)
                 helper.iFxTouchListener?.OnDragEnd(endX, endY,nearestTop,nearestLeft)
             }
         }

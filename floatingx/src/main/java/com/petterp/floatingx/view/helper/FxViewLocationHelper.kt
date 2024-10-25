@@ -72,7 +72,7 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
         // 判断坐标应该准确在哪里
         basicView?.updateXY(safeX(defaultX), safeY(defaultY))
         if (config.enableEdgeAdsorption){
-            config.iFxTouchListener?.OnDragEnd(defaultX, defaultY,
+            config?.iFxTouchListener?.OnDragEnd(defaultX, defaultY,
                 basicView?.isNearestTop(defaultY) == true, basicView?.isNearestLeft(defaultX) == true
             ,true)
         }
