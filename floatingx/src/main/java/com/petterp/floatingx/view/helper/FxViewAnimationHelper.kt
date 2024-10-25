@@ -43,16 +43,23 @@ class FxViewAnimationHelper : FxViewBasicHelper() {
                     override fun onAnimationRepeat(animation: Animator?) {}
 
                     override fun onAnimationEnd(animation: Animator?) {
-                        config?.iFxTouchListener?.OnDragEnd(endX, endY,
-                            basicView?.isNearestTop(endY) == true,
-                            basicView?.isNearestLeft(endX) == true
-                        )
+                        if (config.enableEdgeAdsorption){
+                            config?.iFxTouchListener?.OnDragEnd(endX, endY,
+                                basicView?.isNearestTop(endY) == true,
+                                basicView?.isNearestLeft(endX) == true
+                            )
+                        }
                     }
 
                     override fun onAnimationCancel(animation: Animator?) {
-                        config?.iFxTouchListener?.OnDragEnd(endX, endY,
-                            basicView?.isNearestTop(endY) == true, basicView?.isNearestLeft(endX) == true
-                        )
+                        if (config.enableEdgeAdsorption) {
+                            config?.iFxTouchListener?.OnDragEnd(
+                                endX,
+                                endY,
+                                basicView?.isNearestTop(endY) == true,
+                                basicView?.isNearestLeft(endX) == true
+                            )
+                        }
                     }
 
                     override fun onAnimationStart(animation: Animator?) {

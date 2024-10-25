@@ -206,7 +206,9 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
             updateXY(endX, endY)
             val nearestTop = isNearestTop(endY)
             val nearestLeft = isNearestLeft(endX)
-            helper.iFxTouchListener?.OnDragEnd(endX, endY,nearestTop,nearestLeft)
+            if (helper.enableEdgeAdsorption){
+                helper.iFxTouchListener?.OnDragEnd(endX, endY,nearestTop,nearestLeft)
+            }
         }
         locationHelper.checkOrSaveLocation(endX, endY)
         helper.fxLog.d("fxView -> moveToXY: start($curX,$curY),end($endX,$endY)")
