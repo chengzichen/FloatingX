@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import java.lang.ref.WeakReference
+import java.util.Stack
 
 /**
  * Fx基础Provider提供者
@@ -11,20 +12,20 @@ import java.lang.ref.WeakReference
  */
 class FxAppLifecycleProvider : Application.ActivityLifecycleCallbacks {
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        updateTopActivity(activity)
+        addActivity(activity)
     }
 
     override fun onActivityStarted(activity: Activity) {
     }
 
     override fun onActivityResumed(activity: Activity) {
-        updateTopActivity(activity)
     }
 
     override fun onActivityPaused(activity: Activity) {
     }
 
     override fun onActivityStopped(activity: Activity) {
+        removeActivity(activity)
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
@@ -34,15 +35,21 @@ class FxAppLifecycleProvider : Application.ActivityLifecycleCallbacks {
     }
 
     companion object {
-        private var _currentActivity: WeakReference<Activity>? = null
+        private var activityStack: Stack<Activity>? = null
 
         @JvmSynthetic
-        fun getTopActivity(): Activity? = _currentActivity?.get()
+        fun getTopActivity(): Activity? =if (activityStack!=null&& activityStack!!.isNotEmpty()){ activityStack?.lastElement()} else null
+        fun addActivity(activity: Activity) {
+            if (activityStack == null) {
+                activityStack = Stack()
+            }
+            activityStack!!.add(activity)
+        }
 
-        @JvmSynthetic
-        internal fun updateTopActivity(activity: Activity?) {
-            if (activity == null || _currentActivity?.get() === activity) return
-            _currentActivity = WeakReference(activity)
+        fun removeActivity(activity: Activity?) {
+            if (activity != null) {
+                activityStack!!.remove(activity)
+            }
         }
     }
 }
