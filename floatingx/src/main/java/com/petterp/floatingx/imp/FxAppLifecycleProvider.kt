@@ -25,13 +25,14 @@ class FxAppLifecycleProvider : Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityStopped(activity: Activity) {
-        removeActivity(activity)
+
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
     }
 
     override fun onActivityDestroyed(activity: Activity) {
+        removeActivity(activity)
     }
 
     companion object {
