@@ -103,7 +103,9 @@ class FxSystemPlatformProvider(
                 topActivity?.safeRemovePermissionFragment(helper.fxLog)
                 resultListener?.invoke(it)
             }
-            permissionControl.requestPermission(helper.tag, requestRunnable)
+            requestRunnable?.let {
+                permissionControl.requestPermission(helper.tag, it)
+            }
         }
     }
 
@@ -117,9 +119,13 @@ class FxSystemPlatformProvider(
 
     override fun reset() {
         hide()
-        wm?.removeViewImmediate(internalView)
+        if (internalView?.isAttachedToWindow == true){
+            wm?.removeViewImmediate(internalView)
+        }
         topActivity?.safeRemovePermissionFragment(helper.fxLog)
-        helper.context.unregisterActivityLifecycleCallbacks(_lifecycleImp)
+        _lifecycleImp?.let {
+            helper.context.unregisterActivityLifecycleCallbacks(it)
+        }
         requestRunnable = null
         _lifecycleImp = null
     }
