@@ -62,7 +62,7 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
 
     override fun moveDefaultLocation() {
         val (x, y) = locationHelper.getDefaultLocation() ?: return
-        moveLocation(x, y, true)
+        moveLocation(x, y, false)
     }
 
     override fun moveLocation(x: Float, y: Float, useAnimation: Boolean) {
