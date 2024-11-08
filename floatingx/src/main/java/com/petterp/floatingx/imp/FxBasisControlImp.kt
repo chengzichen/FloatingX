@@ -110,7 +110,7 @@ abstract class FxBasisControlImp<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
         fxBorderMargin.b = b
         fxBorderMargin.r = r
         (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
-        internalView?.moveToEdge()
+        internalView?.moveToEdgeWithNoAnimation()
     }
 
     override fun updateView(view: View) {

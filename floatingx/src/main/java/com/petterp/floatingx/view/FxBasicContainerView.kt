@@ -60,6 +60,10 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
         moveLocation(x, y, true)
     }
 
+    override fun moveToEdgeWithNoAnimation() {
+        val (x, y) = locationHelper.getDefaultEdgeXY() ?: return
+        moveLocation(x, y, false)
+    }
     override fun moveDefaultLocation() {
         val (x, y) = locationHelper.getDefaultLocation() ?: return
         moveLocation(x, y, false)

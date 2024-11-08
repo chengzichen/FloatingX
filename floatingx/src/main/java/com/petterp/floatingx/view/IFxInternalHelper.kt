@@ -30,6 +30,8 @@ interface IFxInternalHelper {
 
     fun moveToEdge()
 
+    fun moveToEdgeWithNoAnimation()
+
     fun updateView(@LayoutRes layoutId: Int)
 
     fun updateView(layoutView: View)
