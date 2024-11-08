@@ -49,7 +49,7 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
             this.r = r
         }
         (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
-        internalView?.moveToEdge()
+        internalView?.moveToEdgeWithNoAnimation()
     }
 
     override fun setEnableEdgeAdsorption(isEnable: Boolean) {
