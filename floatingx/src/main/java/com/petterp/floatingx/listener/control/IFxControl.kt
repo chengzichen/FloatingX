@@ -3,6 +3,7 @@ package com.petterp.floatingx.listener.control
 import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
+import com.petterp.floatingx.assist.FxGravity
 import com.petterp.floatingx.listener.provider.IFxContextProvider
 import com.petterp.floatingx.listener.provider.IFxHolderProvider
 import com.petterp.floatingx.view.FxViewHolder
@@ -61,6 +62,14 @@ interface IFxControl {
     /** 设置点击事件,同时增加防重 */
     fun setClickListener(time: Long = 300L, listener: View.OnClickListener?)
 
+    /** 设置边框相对应父view的偏移量 */
+    fun setBorderMargin(t: Float, l: Float, b: Float, r: Float)
+    /**
+     * 设置悬浮窗视图默认位置,默认右下角,
+     *
+     * 注意：此方法会影响setX()||setY()
+     */
+    fun setGravity(gravity: FxGravity)
     /**
      * 移动浮窗到指定位置，该方法会帮助你处理越界问题，默认带动画
      * @param x 要移动到的x坐标
@@ -92,5 +101,6 @@ interface IFxControl {
     fun moveByVector(x: Float, y: Float, useAnimation: Boolean)
 
     fun updateConfig(obj: IFxConfigControl.() -> Unit)
+
 
 }

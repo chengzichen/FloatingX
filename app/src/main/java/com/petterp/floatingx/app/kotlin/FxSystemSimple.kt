@@ -78,7 +78,7 @@ object FxSystemSimple {
             // 设置悬浮窗默认方向
             setGravity(FxGravity.TOP_OR_CENTER)
             // 设置偏移位置
-            setOffsetXY(100f, 100f)
+//            setOffsetXY(100f, 100f)
             // 设置启用边缘吸附,默认启用
             setEnableEdgeAdsorption(true)
             // 设置边缘偏移量
@@ -92,7 +92,7 @@ object FxSystemSimple {
             // 设置启用动画实现
             setAnimationImpl(FxAnimationImpl())
             // 设置移动边框
-//            setBorderMargin(50f, 50f, 50f, 50f)
+            setBorderMargin(150f, 150f, 150f, 150f)
             /** 指定浮窗可显示的activity方式 */
             // 1.设置是否允许所有activity都进行显示,默认true
             setEnableAllInstall(true)

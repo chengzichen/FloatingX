@@ -152,6 +152,15 @@ class ScopeActivity : AppCompatActivity() {
                     addItemView("边距调整为100f") {
                         scopeFx.configControl.setBorderMargin(100f, 100f, 100f, 100f)
                     }
+                    addItemView("边距调整为0f") {
+                        scopeFx.configControl.setBorderMargin(0f, 0f, 0f, 0f)
+                    }
+                    addItemView("默认位置") {
+                        scopeFx.configControl.setGravity(FxGravity.DEFAULT)
+                    }
+                    addItemView("右上角") {
+                        scopeFx.configControl.setGravity(FxGravity.RIGHT_OR_TOP)
+                    }
                     addItemView("移动浮窗到(0,0)") {
                         scopeFx.move(0f, 0f)
                     }

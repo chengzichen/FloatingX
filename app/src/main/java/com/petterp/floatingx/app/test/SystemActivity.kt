@@ -15,6 +15,7 @@ import com.petterp.floatingx.app.addNestedScrollView
 import com.petterp.floatingx.app.createLinearLayoutToParent
 import com.petterp.floatingx.app.dp
 import com.petterp.floatingx.app.start
+import com.petterp.floatingx.assist.FxGravity
 
 /**
  *
@@ -41,6 +42,9 @@ class SystemActivity : AppCompatActivity() {
                     addItemView("移动到(500,500)") {
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.move(500f, 500f)
                     }
+                    addItemView("左上角") {
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.LEFT_OR_TOP)
+                    }
                     addItemView("updateView()") {
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.updateView {
                             TextView(it).apply {
@@ -51,6 +55,27 @@ class SystemActivity : AppCompatActivity() {
                                 setBackgroundColor(Color.GRAY)
                             }
                         }
+                    }
+                    addItemView("边距调整为100f") {
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.updateConfig {
+                            setBorderMargin(200f, 200f, 200f, 200f)
+                        }
+                    }
+                    addItemView("边距调整为0f") {
+//                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.updateConfig {
+//                            setBorderMargin(20f, 20f, 20f, 20f)
+////                            setGravity(FxGravity.RIGHT_OR_TOP)
+//                        }
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?. setBorderMargin(20f, 20f, 20f, 20f)
+                    }
+                    addItemView("默认位置") {
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.DEFAULT)
+                    }
+                    addItemView("右上角") {
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.RIGHT_OR_TOP)
+                    }
+                    addItemView("右上角") {
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.RIGHT_OR_TOP)
                     }
                     addItemView("updateView2()") {
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)

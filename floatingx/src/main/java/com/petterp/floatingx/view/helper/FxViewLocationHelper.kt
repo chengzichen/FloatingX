@@ -216,6 +216,19 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
         config.fxLog.d("fxView -> updateSize: parentW:$parentW,parentH:$parentH,viewW:$viewW,viewH:$viewH")
     }
 
+     fun getDefaultLocation(): Pair<Float, Float> {
+        val locationFrom: String
+        val (defaultX, defaultY) =  if (config.hasDefaultXY) {
+            locationFrom = "user_init_location"
+            config.defaultX to config.defaultY
+        } else {
+            locationFrom = "default_location"
+            getDefaultXY(parentW, parentH, viewW, viewH)
+        }
+        config.fxLog.d("fxView -> getDefaultLocation: x:$defaultX,y:$defaultY,way:[$locationFrom]")
+        return  defaultX to defaultY
+    }
+
     public fun isNearestLeft(x: Float): Boolean {
         val middle = parentW / 2
         val viewMiddlePoint = x + viewW / 2

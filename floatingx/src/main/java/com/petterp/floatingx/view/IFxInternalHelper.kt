@@ -26,6 +26,8 @@ interface IFxInternalHelper {
 
     fun checkPointerDownTouch(@IdRes id: Int, event: MotionEvent): Boolean
 
+    fun moveDefaultLocation()
+
     fun moveToEdge()
 
     fun updateView(@LayoutRes layoutId: Int)
@@ -33,4 +35,5 @@ interface IFxInternalHelper {
     fun updateView(layoutView: View)
 
     fun invokeClick()
+
 }

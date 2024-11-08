@@ -60,6 +60,11 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
         moveLocation(x, y, true)
     }
 
+    override fun moveDefaultLocation() {
+        val (x, y) = locationHelper.getDefaultLocation() ?: return
+        moveLocation(x, y, true)
+    }
+
     override fun moveLocation(x: Float, y: Float, useAnimation: Boolean) {
         // 需要考虑状态栏的影响
         safeMoveToXY(x, y, useAnimation)

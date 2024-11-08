@@ -3,6 +3,7 @@ package com.petterp.floatingx.imp
 import com.petterp.floatingx.assist.FxAdsorbDirection
 import com.petterp.floatingx.assist.FxAnimation
 import com.petterp.floatingx.assist.FxDisplayMode
+import com.petterp.floatingx.assist.FxGravity
 import com.petterp.floatingx.assist.helper.FxBasisHelper
 import com.petterp.floatingx.listener.IFxConfigStorage
 import com.petterp.floatingx.listener.IFxTouchListener
@@ -47,11 +48,13 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
             this.b = b
             this.r = r
         }
+        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
         internalView?.moveToEdge()
     }
 
     override fun setEnableEdgeAdsorption(isEnable: Boolean) {
         helper.enableEdgeAdsorption = isEnable
+        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
         internalView?.moveToEdge()
     }
 
@@ -61,16 +64,19 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
 
     override fun setEdgeAdsorbDirection(direction: FxAdsorbDirection) {
         helper.adsorbDirection = direction
+        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
         internalView?.moveToEdge()
     }
 
     override fun setEdgeOffset(edgeOffset: Float) {
         helper.edgeOffset = edgeOffset
+        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
         internalView?.moveToEdge()
     }
 
     override fun setEnableEdgeRebound(isEnable: Boolean) {
         helper.enableEdgeRebound = isEnable
+        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
         internalView?.moveToEdge()
     }
 
@@ -85,6 +91,18 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
         helper.halfHidePercent = percent.coerceInFx(FX_HALF_PERCENT_MIN, FX_HALF_PERCENT_MAX)
         (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
         internalView?.moveToEdge()
+    }
+
+    override fun setOffsetXY(x: Float, y: Float) {
+        helper.offsetX = x
+        helper.offsetY = y
+        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
+        internalView?.moveToEdge()
+    }
+
+    override fun setGravity(gravity: FxGravity) {
+        helper.gravity = gravity
+        internalView?.moveDefaultLocation()
     }
 
     @Deprecated("use addViewLifecycle", replaceWith = ReplaceWith("addViewLifecycleListener"))

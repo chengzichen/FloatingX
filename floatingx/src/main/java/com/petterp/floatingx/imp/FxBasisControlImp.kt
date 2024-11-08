@@ -2,6 +2,7 @@ package com.petterp.floatingx.imp
 
 import android.view.View
 import androidx.annotation.LayoutRes
+import com.petterp.floatingx.assist.FxGravity
 import com.petterp.floatingx.assist.helper.FxBasisHelper
 import com.petterp.floatingx.listener.control.IFxConfigControl
 import com.petterp.floatingx.listener.control.IFxControl
@@ -102,6 +103,16 @@ abstract class FxBasisControlImp<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
         internalView?.updateView(resource)
     }
 
+    override fun setBorderMargin(t: Float, l: Float, b: Float, r: Float) {
+        val fxBorderMargin = helper.fxBorderMargin
+        fxBorderMargin.t = t
+        fxBorderMargin.l = l
+        fxBorderMargin.b = b
+        fxBorderMargin.r = r
+        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
+        internalView?.moveToEdge()
+    }
+
     override fun updateView(view: View) {
         helper.layoutId = INVALID_LAYOUT_ID
         helper.layoutView = view
@@ -130,6 +141,10 @@ abstract class FxBasisControlImp<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
         helper.iFxLongClickListener = listener
         helper.enableClickListener = listener != null
     }
+    override fun setGravity(gravity: FxGravity) {
+        helper.gravity = gravity
+        internalView?.moveDefaultLocation()
+    }
 
     override fun move(x: Float, y: Float) {
         move(x, y, true)
@@ -146,6 +161,7 @@ abstract class FxBasisControlImp<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
     override fun moveByVector(x: Float, y: Float, useAnimation: Boolean) {
         internalView?.moveLocationByVector(x, y, useAnimation)
     }
+
 
     override fun updateConfig(obj: IFxConfigControl.() -> Unit) {
         obj.invoke(_configControl)
