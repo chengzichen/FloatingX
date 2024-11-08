@@ -61,7 +61,7 @@ class SystemActivity : AppCompatActivity() {
                             setBorderMargin(200f, 200f, 200f, 200f)
                         }
                     }
-                    addItemView("边距调整为0f") {
+                    addItemView("边距调整为20f") {
 //                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.updateConfig {
 //                            setBorderMargin(20f, 20f, 20f, 20f)
 ////                            setGravity(FxGravity.RIGHT_OR_TOP)
