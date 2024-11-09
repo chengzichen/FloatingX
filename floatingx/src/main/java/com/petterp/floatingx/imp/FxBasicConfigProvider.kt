@@ -48,14 +48,10 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
             this.b = b
             this.r = r
         }
-        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
-        internalView?.moveToEdge()
     }
 
     override fun setEnableEdgeAdsorption(isEnable: Boolean) {
         helper.enableEdgeAdsorption = isEnable
-        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
-        internalView?.moveToEdge()
     }
 
     override fun setTouchListener(listener: IFxTouchListener) {
@@ -72,6 +68,11 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
         helper.edgeOffset = edgeOffset
         (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
         internalView?.moveToEdge()
+    }
+
+    fun moveRoEdge(useAnimation: Boolean=true) {
+        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
+        internalView?.moveToEdge(useAnimation)
     }
 
     override fun setEnableEdgeRebound(isEnable: Boolean) {
