@@ -26,7 +26,7 @@ interface IFxInternalHelper {
 
     fun checkPointerDownTouch(@IdRes id: Int, event: MotionEvent): Boolean
 
-    fun moveDefaultLocation(useAnimation: Boolean)
+    fun moveDefaultLocation(useAnimation: Boolean=false)
 
     fun moveToEdge(useAnimation: Boolean = true)
 

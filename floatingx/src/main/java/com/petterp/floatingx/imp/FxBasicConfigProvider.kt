@@ -104,6 +104,10 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
         helper.gravity = gravity
     }
 
+    fun moveDefaultLocation(useAnimation: Boolean=false) {
+        internalView?.moveDefaultLocation(useAnimation)
+    }
+
     @Deprecated("use addViewLifecycle", replaceWith = ReplaceWith("addViewLifecycleListener"))
     override fun setViewLifecycleListener(listener: IFxViewLifecycle) {
         helper.iFxViewLifecycles[0] = listener
