@@ -48,6 +48,7 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
             this.b = b
             this.r = r
         }
+        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
     }
 
     override fun setEnableEdgeAdsorption(isEnable: Boolean) {
@@ -61,7 +62,6 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
     override fun setEdgeAdsorbDirection(direction: FxAdsorbDirection) {
         helper.adsorbDirection = direction
         (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
-        internalView?.moveToEdge()
     }
 
     override fun setEdgeOffset(edgeOffset: Float) {
