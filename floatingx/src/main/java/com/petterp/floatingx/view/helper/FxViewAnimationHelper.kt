@@ -38,6 +38,12 @@ class FxViewAnimationHelper : FxViewBasicHelper() {
                     val x = calculationNumber(startX, endX, fraction)
                     val y = calculationNumber(startY, endY, fraction)
                     basicView?.updateXY(x, y)
+                    if (config.enableEdgeAdsorption) {
+                        config?.iFxTouchListener?.onDragIng(null,
+                            endX,
+                            endY,
+                        )
+                    }
                 }
                addListener(object : Animator.AnimatorListener {
                     override fun onAnimationRepeat(animation: Animator?) {}

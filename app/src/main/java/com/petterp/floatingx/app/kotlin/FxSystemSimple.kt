@@ -163,7 +163,7 @@ object FxSystemSimple {
 
                 }
 
-                override fun onDragIng(event: MotionEvent, x: Float, y: Float) {
+                override fun onDragIng(event: MotionEvent?, x: Float, y: Float) {
                     // 拖动
                     appControl?.updateViewContent { holder ->
                         val textView = holder.getViewOrNull<TextView>(R.id.tvItemFx)

@@ -23,7 +23,7 @@ interface IFxTouchListener {
     /**
      * 监测当前移动浮窗的手指 move回调
      *
-     * @param event 当前手势事件
+     * @param event 当前手势事件 可能是为空，使用api调用时滑动是也会回调
      * @param x 当前浮窗相对于父View的x坐标
      * @param y 当前浮窗相对于父View的y坐标.
      * @since x,y代表了当前浮窗相对于父View的位置信息,即当前浮窗(左上角坐标)。
@@ -35,7 +35,7 @@ interface IFxTouchListener {
      * 注意：这个方法仅会回调当前正在按压的手指事件
      *
      * */
-    fun onDragIng(event: MotionEvent, x: Float, y: Float) {}
+    fun onDragIng(event: MotionEvent?, x: Float, y: Float) {}
 
     /**
      * 实现此方法，可实现类似TouchListener的拦截效果

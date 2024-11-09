@@ -318,26 +318,28 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
         }
     }
 
-    private fun checkOrRestoreLocation() {
-        if (isInitLocation) return
-        config.fxLog.d("fxView -> restoreLocation,start")
-        val defaultXY=getDefaultLocation()
-        val (restoreX, restoreY) = if (config.enableEdgeAdsorption) {
-            // 如果是由configChange触发，则优先使用之前保存的
-            val (isNearestLeft, isNearestTop) = if (needUpdateConfig) {
-                restoreLeftStandard to restoreTopStandard
+    private   fun   checkOrRestoreLocation() {
+        synchronized(this) {
+            if (isInitLocation) return
+            config.fxLog.d("fxView -> restoreLocation,start")
+            val defaultXY = getDefaultLocation()
+            val (restoreX, restoreY) = if (config.enableEdgeAdsorption) {
+                // 如果是由configChange触发，则优先使用之前保存的
+                val (isNearestLeft, isNearestTop) = if (needUpdateConfig) {
+                    restoreLeftStandard to restoreTopStandard
+                } else {
+                    isNearestLeft(defaultXY.first) to isNearestTop(defaultXY.second)
+                }
+                getAdsorbDirectionLocation(isNearestLeft, isNearestTop)
             } else {
-                isNearestLeft(defaultXY.first) to isNearestTop(defaultXY.second)
+                safeX(defaultXY.first) to safeY(defaultXY.second)
             }
-            getAdsorbDirectionLocation(isNearestLeft, isNearestTop)
-        } else {
-            safeX(defaultXY.first) to safeY(defaultXY.second)
+            restoreLeftStandard = false
+            restoreTopStandard = false
+            needUpdateLocation = false
+            needUpdateConfig = false
+            basicView?.internalMoveToXY(restoreX, restoreY)
+            config.fxLog.d("fxView -> restoreLocation,success")
         }
-        restoreLeftStandard = false
-        restoreTopStandard = false
-        needUpdateLocation = false
-        needUpdateConfig = false
-        basicView?.internalMoveToXY(restoreX, restoreY)
-        config.fxLog.d("fxView -> restoreLocation,success")
     }
 }
