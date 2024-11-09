@@ -321,16 +321,17 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
     private fun checkOrRestoreLocation() {
         if (isInitLocation) return
         config.fxLog.d("fxView -> restoreLocation,start")
+        val defaultXY=getDefaultLocation()
         val (restoreX, restoreY) = if (config.enableEdgeAdsorption) {
             // 如果是由configChange触发，则优先使用之前保存的
             val (isNearestLeft, isNearestTop) = if (needUpdateConfig) {
                 restoreLeftStandard to restoreTopStandard
             } else {
-                isNearestLeft(x) to isNearestTop(y)
+                isNearestLeft(defaultXY.first) to isNearestTop(defaultXY.second)
             }
             getAdsorbDirectionLocation(isNearestLeft, isNearestTop)
         } else {
-            safeX(x) to safeY(y)
+            safeX(defaultXY.first) to safeY(defaultXY.second)
         }
         restoreLeftStandard = false
         restoreTopStandard = false

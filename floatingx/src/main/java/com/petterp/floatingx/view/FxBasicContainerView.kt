@@ -55,18 +55,14 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
         visibility = View.INVISIBLE
     }
 
-    override fun moveToEdge() {
+    override fun moveToEdge(useAnimation: Boolean) {
         val (x, y) = locationHelper.getDefaultEdgeXY() ?: return
-        moveLocation(x, y, true)
+        moveLocation(x, y, useAnimation)
     }
 
-    override fun moveToEdgeWithNoAnimation() {
-        val (x, y) = locationHelper.getDefaultEdgeXY() ?: return
-        moveLocation(x, y, false)
-    }
-    override fun moveDefaultLocation() {
+    override fun moveDefaultLocation(useAnimation: Boolean) {
         val (x, y) = locationHelper.getDefaultLocation() ?: return
-        moveLocation(x, y, false)
+        moveLocation(x, y, useAnimation)
     }
 
     override fun moveLocation(x: Float, y: Float, useAnimation: Boolean) {

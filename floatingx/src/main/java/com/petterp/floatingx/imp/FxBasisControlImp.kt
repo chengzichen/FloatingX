@@ -109,8 +109,6 @@ abstract class FxBasisControlImp<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
         fxBorderMargin.l = l
         fxBorderMargin.b = b
         fxBorderMargin.r = r
-        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
-        internalView?.moveToEdgeWithNoAnimation()
     }
 
     override fun updateView(view: View) {
@@ -143,7 +141,17 @@ abstract class FxBasisControlImp<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
     }
     override fun setGravity(gravity: FxGravity) {
         helper.gravity = gravity
-        internalView?.moveDefaultLocation()
+    }
+
+
+
+    override fun moveToEdge(useAnimation: Boolean) {
+        (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
+        internalView?.moveToEdge(useAnimation)
+    }
+
+    override fun moveDefault(useAnimation: Boolean) {
+        internalView?.moveDefaultLocation(useAnimation)
     }
 
     override fun move(x: Float, y: Float) {

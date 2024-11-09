@@ -103,4 +103,8 @@ interface IFxControl {
     fun updateConfig(obj: IFxConfigControl.() -> Unit)
 
 
+    fun moveDefault(useAnimation: Boolean)
+
+
+    fun moveToEdge(useAnimation: Boolean)
 }

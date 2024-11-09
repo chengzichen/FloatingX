@@ -49,7 +49,7 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
             this.r = r
         }
         (internalView as? FxBasicContainerView)?.locationHelper?.updateMoveBoundary()
-        internalView?.moveToEdgeWithNoAnimation()
+        internalView?.moveToEdge()
     }
 
     override fun setEnableEdgeAdsorption(isEnable: Boolean) {
@@ -102,7 +102,6 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
 
     override fun setGravity(gravity: FxGravity) {
         helper.gravity = gravity
-        internalView?.moveDefaultLocation()
     }
 
     @Deprecated("use addViewLifecycle", replaceWith = ReplaceWith("addViewLifecycleListener"))
