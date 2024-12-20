@@ -46,6 +46,7 @@ class SystemActivity : AppCompatActivity() {
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.LEFT_OR_TOP)
                     }
                     addItemView("updateView()") {
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.TOP_OR_CENTER)
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.updateView {
                             TextView(it).apply {
                                 layoutParams = ViewGroup.LayoutParams(100.dp, 200.dp)
@@ -78,6 +79,7 @@ class SystemActivity : AppCompatActivity() {
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.RIGHT_OR_TOP)
                     }
                     addItemView("updateView2()") {
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.LEFT_OR_TOP)
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)
                             ?.updateView(R.layout.item_floating_new)
                     }

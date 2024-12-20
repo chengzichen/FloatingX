@@ -82,7 +82,7 @@ object FxSystemSimple {
             // 设置偏移位置
 //            setOffsetXY(100f, 100f)
             // 设置启用边缘吸附,默认启用
-            setEnableEdgeAdsorption(true)
+            setEnableEdgeAdsorption(false)
             // 设置边缘偏移量
 //            setEdgeOffset(10f)
             // 设置启用悬浮窗可屏幕外回弹

@@ -97,7 +97,7 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
         locationHelper.needUpdateLocation()
         safeRemoveView(_childView)
         installChildView()
-        containerView?.visibility = View.GONE
+        containerView?.visibility = View.INVISIBLE
     }
 
     override fun updateView(layoutView: View) {
@@ -105,7 +105,7 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
         locationHelper.needUpdateLocation()
         safeRemoveView(_childView)
         installChildView()
-        containerView?.visibility = View.GONE
+        containerView?.visibility = View.INVISIBLE
     }
 
     override fun invokeClick() {
@@ -120,6 +120,7 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
         if (!isInitLayout) return
+        containerView?.visibility = View.INVISIBLE
         isInitLayout = false
         helpers.forEach { it.onInit() }
         visibility = View.VISIBLE
