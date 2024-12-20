@@ -14,8 +14,11 @@ import com.petterp.floatingx.listener.IFxViewLifecycle
 import com.petterp.floatingx.util.FxLog
 import kotlin.math.abs
 
+@DslMarker
+annotation class FxBuilderDsl
+
 /** 通用构建器helper */
-open class FxBasisHelper {
+abstract class FxBasisHelper {
     @JvmField
     internal var layoutId: Int = 0
 
@@ -411,7 +414,9 @@ open class FxBasisHelper {
             return this as T
         }
 
-        /** 设置是否支持半隐藏 */
+        /** 设置是否支持半隐藏
+         * 系统浮窗时，目前会同时打开[setEnableSafeArea(false)]，以避免浮窗高度超出屏幕(系统行为)
+         * */
         fun setEnableHalfHide(isEnable: Boolean): T {
             enableHalfHide = isEnable
             return this as T
