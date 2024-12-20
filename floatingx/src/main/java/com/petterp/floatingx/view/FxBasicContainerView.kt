@@ -95,14 +95,16 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
         helper.fxLog.d("fxView -> updateView")
         locationHelper.needUpdateLocation()
         removeView(_childView)
-        installChildView()
+        val installChildView = installChildView()
+        containerView?.visibility = View.GONE
     }
 
     override fun updateView(layoutView: View) {
         helper.fxLog.d("fxView -> updateView")
         locationHelper.needUpdateLocation()
         removeView(_childView)
-        installChildView()
+        val installChildView = installChildView()
+        containerView?.visibility = View.GONE
     }
 
     override fun invokeClick() {
