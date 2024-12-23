@@ -24,4 +24,6 @@ abstract class FxViewBasicHelper {
     open fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {}
 
     open fun onConfigurationChanged(config: Configuration) {}
+
+    open  fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int){}
 }

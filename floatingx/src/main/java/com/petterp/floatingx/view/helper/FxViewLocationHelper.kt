@@ -1,6 +1,7 @@
 package com.petterp.floatingx.view.helper
 
 import android.content.res.Configuration
+import android.util.Log
 import android.view.View
 import com.petterp.floatingx.assist.FxAdsorbDirection
 import com.petterp.floatingx.assist.FxBoundaryConfig
@@ -56,6 +57,8 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
         }
     }
 
+
+
     override fun onInit() {
         // 先刷新一下view大小，避免有时候sizeChanged没测量
         updateViewSize()
@@ -83,6 +86,11 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
         config.fxLog.d("fxView -> initLocation: x:$safeX,y:$safeY,way:[$locationFrom]")
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        config.fxLog.d("fxView -> onMeasure: widthMeasureSpec:$widthMeasureSpec,heightMeasureSpec:$heightMeasureSpec")
+    }
     override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
         updateViewSize()
         // 初始化跳过
@@ -209,8 +217,8 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
     private fun updateViewSize() {
         val view = basicView ?: return
         val (pW, pH) = view.parentSize() ?: return
-        val viewH = view.height.toFloat()
-        val viewW = view.width.toFloat()
+        val viewH = view.measuredHeight.toFloat()
+        val viewW = view.measuredWidth.toFloat()
         this.parentW = pW.toFloat()
         this.parentH = pH.toFloat()
         this.viewW = viewW
@@ -258,7 +266,7 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
         viewW: Float,
         viewH: Float
     ): Pair<Float, Float> {
-        return config.run {
+        val floatPair = config.run {
             // 为历史方法做兼容
             val l = fxBorderMargin.l + safeEdgeOffSet
             val r = fxBorderMargin.r + safeEdgeOffSet
@@ -285,6 +293,8 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
                 else -> (width - viewW).shr(2) to (height - viewH).shr(2)
             }.safeLocationXY
         }
+        config.fxLog.d("fxView -> getDefaultXY: x:${floatPair.first},y:${floatPair.second}")
+        return floatPair
     }
 
     internal fun updateMoveBoundary() {
@@ -343,7 +353,7 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
             needUpdateConfig = false
             basicView?.containerView?.visibility = View.GONE
             basicView?.containerView?.visibility = View.VISIBLE
-            basicView?.internalMoveToXY(restoreX, restoreY)
+            basicView?.internalMoveToXY(restoreX, restoreY,needUpdateLocation= true)
             config.fxLog.d("fxView -> restoreLocation,success")
         }
     }

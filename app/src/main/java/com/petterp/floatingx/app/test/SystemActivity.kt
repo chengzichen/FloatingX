@@ -46,6 +46,7 @@ class SystemActivity : AppCompatActivity() {
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.LEFT_OR_TOP)
                     }
                     addItemView("updateView()") {
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?. setBorderMargin(0f, 0f, 0f, 0f)
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.TOP_OR_CENTER)
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.updateView {
                             TextView(it).apply {
@@ -61,6 +62,7 @@ class SystemActivity : AppCompatActivity() {
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.updateConfig {
                             setBorderMargin(200f, 200f, 200f, 200f)
                         }
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.moveDefault(false)
                     }
                     addItemView("边距调整为20f") {
 //                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.updateConfig {
@@ -68,6 +70,7 @@ class SystemActivity : AppCompatActivity() {
 ////                            setGravity(FxGravity.RIGHT_OR_TOP)
 //                        }
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?. setBorderMargin(20f, 20f, 20f, 20f)
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.moveDefault(false)
                     }
                     addItemView("默认位置") {
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.DEFAULT)
@@ -79,7 +82,8 @@ class SystemActivity : AppCompatActivity() {
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.RIGHT_OR_TOP)
                     }
                     addItemView("updateView2()") {
-                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.LEFT_OR_TOP)
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?. setBorderMargin(20f, 20f, 20f, 20f)
+                        FloatingX.controlOrNull(MultipleFxActivity.TAG_1)?.setGravity(FxGravity.RIGHT_OR_TOP)
                         FloatingX.controlOrNull(MultipleFxActivity.TAG_1)
                             ?.updateView(R.layout.item_floating_new)
                     }
