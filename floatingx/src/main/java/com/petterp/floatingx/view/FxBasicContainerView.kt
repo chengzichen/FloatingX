@@ -2,12 +2,14 @@ package com.petterp.floatingx.view
 
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.petterp.floatingx.R
 import com.petterp.floatingx.assist.helper.FxBasisHelper
 import com.petterp.floatingx.util.INVALID_LAYOUT_ID
 import com.petterp.floatingx.util.safeAddView
@@ -112,6 +114,12 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
         helper.iFxClickListener?.onClick(this)
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        measureChildren(widthMeasureSpec, heightMeasureSpec)
+        helpers.forEach { it.onMeasure(widthMeasureSpec, heightMeasureSpec) }
+    }
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         helpers.forEach { it.onSizeChanged(w, h, oldw, oldh) }
@@ -119,8 +127,15 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
+        val count = childCount
+        for (i in 0 until count) {
+            val child = getChildAt(i)
+            if (child.visibility != GONE) {
+                // 设置子视图的位置
+                child.layout(0, 0, child.measuredWidth, child.measuredHeight)
+            }
+        }
         if (!isInitLayout) return
-        containerView?.visibility = View.INVISIBLE
         isInitLayout = false
         helpers.forEach { it.onInit() }
         visibility = View.VISIBLE
@@ -205,10 +220,12 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
         internalMoveToXY(endX, endY, useAnimation)
     }
 
-    internal fun internalMoveToXY(endX: Float, endY: Float, useAnimation: Boolean = false) {
+    internal fun internalMoveToXY(endX: Float, endY: Float, useAnimation: Boolean = false,needUpdateLocation:Boolean=false   ) {
         val curX = currentX()
         val curY = currentY()
-        if (curX == endX && curY == endY){
+        this.containerView.bringToFront()
+        this.containerView?.visibility= VISIBLE
+        if (curX == endX && curY == endY&&!needUpdateLocation){
             val nearestTop = isNearestTop(endY)
             val nearestLeft = isNearestLeft(endX)
             val tmpTouchX = touchHelper.tmpTouchX
@@ -232,7 +249,6 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
         }
         locationHelper.checkOrSaveLocation(endX, endY)
         helper.fxLog.d("fxView -> moveToXY: start($curX,$curY),end($endX,$endY)")
-
     }
     /**
      * 判断是否为最顶部
