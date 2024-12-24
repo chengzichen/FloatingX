@@ -351,8 +351,6 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
             restoreTopStandard = false
             needUpdateLocation = false
             needUpdateConfig = false
-            basicView?.containerView?.visibility = View.GONE
-            basicView?.containerView?.visibility = View.VISIBLE
             basicView?.internalMoveToXY(restoreX, restoreY,needUpdateLocation= true)
             config.fxLog.d("fxView -> restoreLocation,success")
         }
