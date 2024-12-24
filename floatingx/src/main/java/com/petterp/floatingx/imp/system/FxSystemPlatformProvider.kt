@@ -59,14 +59,14 @@ class FxSystemPlatformProvider(
     override fun checkOrInit(): Boolean {
         checkRegisterAppLifecycle()
         // topActivity==null,依然返回true,因为在某些情况下，可能会在Activity未创建时，就调用show
-        val act = topActivity ?: return true
+        val act = topActivity
         // 禁止安装浮窗时，直接返回false
-        if (!helper.isCanInstall(act)) {
+        if (act!=null&&!helper.isCanInstall(act)) {
             helper.fxLog.d("fx not show,This [${act.javaClass.simpleName}] is not in the list of allowed inserts!")
             return false
         }
         if (_internalView == null) {
-            if (!checkAgreePermission(act)) {
+            if (act!=null&&!checkAgreePermission(act)) {
                 internalAskAutoPermission(act)
                 return false
             }
