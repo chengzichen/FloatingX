@@ -13,7 +13,7 @@ import android.widget.EditText
 import com.petterp.floatingx.assist.helper.FxAppHelper
 import com.petterp.floatingx.util.FxInputHelper
 import com.petterp.floatingx.util.realScreenHeight
-import com.petterp.floatingx.util.screenWidth
+import com.petterp.floatingx.util.realScreenWidth
 
 /** 系统悬浮窗View */
 @SuppressLint("ViewConstructor")
@@ -82,7 +82,7 @@ class FxSystemContainerView @JvmOverloads constructor(
     }
 
     override fun parentSize(): Pair<Int, Int> {
-        return helper.context.screenWidth to helper.context.realScreenHeight
+        return helper.context.realScreenWidth to helper.context.realScreenHeight
     }
 
     override fun dispatchKeyEventPreIme(event: KeyEvent?): Boolean {

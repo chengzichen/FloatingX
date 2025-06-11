@@ -39,6 +39,14 @@ internal val Context.screenHeight: Int
         return dm.heightPixels
     }
 
+internal val Context.realScreenWidth: Int
+    get() {
+        val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = wm.defaultDisplay
+        val dm = DisplayMetrics()
+        display.getRealMetrics(dm)
+        return dm.widthPixels
+    }
 internal val Context.screenWidth: Int
     get() {
         val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
