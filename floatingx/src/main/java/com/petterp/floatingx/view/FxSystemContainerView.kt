@@ -1,19 +1,24 @@
 package com.petterp.floatingx.view
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.graphics.PixelFormat
 import android.os.Build
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.MotionEvent
+import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
+import com.petterp.floatingx.assist.FxDisplayMode
 import com.petterp.floatingx.assist.helper.FxAppHelper
 import com.petterp.floatingx.util.FxInputHelper
 import com.petterp.floatingx.util.realScreenHeight
 import com.petterp.floatingx.util.realScreenWidth
+import com.petterp.floatingx.util.screenWidth
 
 /** 系统悬浮窗View */
 @SuppressLint("ViewConstructor")
@@ -28,7 +33,6 @@ class FxSystemContainerView @JvmOverloads constructor(
     private var downTouchY = 0f
     private var isShowKeyBoard = false
     private lateinit var wl: WindowManager.LayoutParams
-
     val isAttachToWM: Boolean
         get() = windowToken != null
 
@@ -82,7 +86,8 @@ class FxSystemContainerView @JvmOverloads constructor(
     }
 
     override fun parentSize(): Pair<Int, Int> {
-        return helper.context.realScreenWidth to helper.context.realScreenHeight
+        //判断当前android系统是否是全屏
+        return (if (isNavigationBarHidden == true) helper.context.realScreenWidth else helper.context.screenWidth )to helper.context.realScreenHeight
     }
 
     override fun dispatchKeyEventPreIme(event: KeyEvent?): Boolean {

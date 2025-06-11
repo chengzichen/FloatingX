@@ -34,7 +34,7 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
     private val animateHelper = FxViewAnimationHelper()
     internal val locationHelper = FxViewLocationHelper()
     private val helpers = listOf(locationHelper, touchHelper, animateHelper)
-
+    internal var isNavigationBarHidden: Boolean?=null
     abstract fun currentX(): Float
     abstract fun currentY(): Float
     abstract fun updateXY(x: Float, y: Float)

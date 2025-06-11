@@ -3,6 +3,8 @@ package com.petterp.floatingx.view.helper
 import android.content.res.Configuration
 import android.util.Log
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.petterp.floatingx.assist.FxAdsorbDirection
 import com.petterp.floatingx.assist.FxBoundaryConfig
 import com.petterp.floatingx.assist.FxGravity
@@ -27,7 +29,6 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
     private var restoreLeftStandard = false
     private var needUpdateConfig: Boolean = false
     private var needUpdateLocation: Boolean = false
-
     private val moveBoundary = FxBoundaryConfig()
     private val moveIngBoundary = FxBoundaryConfig()
 
@@ -84,6 +85,20 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
         }
         isInitLocation = false
         config.fxLog.d("fxView -> initLocation: x:$safeX,y:$safeY,way:[$locationFrom]")
+
+        basicView?.let { view ->
+            ViewCompat.setOnApplyWindowInsetsListener(view) { _, insets ->
+
+                    val isImmersiveMode = insets.isVisible(WindowInsetsCompat.Type.navigationBars()).not()
+                if (basicView?.isNavigationBarHidden==null||basicView?.isNavigationBarHidden!= isImmersiveMode){
+                    Log.d("WindowInsets", "Status Bar isImmersiveMode: $isImmersiveMode")
+                    basicView?.isNavigationBarHidden=isImmersiveMode
+                    updateViewSize()
+                    checkOrRestoreLocation()
+                }
+                insets
+            }
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
