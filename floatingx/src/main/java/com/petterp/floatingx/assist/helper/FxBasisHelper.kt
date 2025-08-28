@@ -70,9 +70,19 @@ abstract class FxBasisHelper {
             field = value
             fxLog.v("update enableFx: [$value]")
         }
-
+    /**
+     * 设置仅仅贴边滑动
+     *    TOP,
+     *     LEFT,
+     *     RIGHT,
+     *     BOTTOM,
+     *     生效
+     */
     @JvmField
     internal var enableEdgeAdsorption: Boolean = true
+
+    @JvmField
+    internal var enableOnlyEdgeSlide: Boolean = false
 
     @JvmField
     internal var enableEdgeRebound: Boolean = true
@@ -183,6 +193,7 @@ abstract class FxBasisHelper {
         private var enableSaveDirection: Boolean = false
         private var enableClickListener: Boolean = false
         private var enableEdgeAdsorption: Boolean = true
+        private var enableOnlyEdgeSlide: Boolean = false
 
         private var iFxConfigStorage: IFxConfigStorage? = null
         private var iFxTouchListener: IFxTouchListener? = null
@@ -218,6 +229,7 @@ abstract class FxBasisHelper {
                 enableHalfHide = this@Builder.enableHalfHide
                 halfHidePercent = this@Builder.halfHidePercent
                 enableEdgeAdsorption = this@Builder.enableEdgeAdsorption
+                enableOnlyEdgeSlide = this@Builder.enableOnlyEdgeSlide
                 enableEdgeRebound = this@Builder.enableEdgeRebound
                 enableSaveDirection = this@Builder.enableSaveDirection
                 enableClickListener = this@Builder.enableClickListener
@@ -289,6 +301,18 @@ abstract class FxBasisHelper {
         /** 设置启用边缘自动吸附，默认启用 */
         fun setEnableEdgeAdsorption(isEnable: Boolean): T {
             this.enableEdgeAdsorption = isEnable
+            return this as T
+        }
+        /** 设置启用只能边缘滑动，默认不启用
+         * 设置仅仅贴边滑动
+         *    TOP,
+         *     LEFT,
+         *     RIGHT,
+         *     BOTTOM,
+         *     生效
+         */
+        fun setEnableOnlyEdgeSlide(isEnable: Boolean): T {
+            this.enableOnlyEdgeSlide = isEnable
             return this as T
         }
 

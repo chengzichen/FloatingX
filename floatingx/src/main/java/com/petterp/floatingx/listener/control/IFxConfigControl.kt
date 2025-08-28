@@ -64,6 +64,17 @@ interface IFxConfigControl {
      * */
     fun setEnableHalfHide(isEnable: Boolean, percent: Float = 0.5f)
 
+
+    /**
+     * 设置仅仅贴边滑动
+     * @param isEnable 是否启用 默认不开启
+     *    TOP,
+     *     LEFT,
+     *     RIGHT,
+     *     BOTTOM,
+     *     生效
+     */
+    fun setEnableOnlyEdgeSlide(isEnable: Boolean)
     /**
      * 设置浮窗展示模式
      *
@@ -101,4 +112,7 @@ interface IFxConfigControl {
 
     /** 清除保存的位置信息 */
     fun clearLocationStorage()
+
+    /**获取当前View的位置*/
+    fun getViewLocation(): Pair<Float, Float>?
 }

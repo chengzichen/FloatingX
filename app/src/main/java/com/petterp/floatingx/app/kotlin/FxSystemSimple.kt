@@ -79,11 +79,11 @@ object FxSystemSimple {
             }
             // 设置悬浮窗默认方向
             setGravity(FxGravity.TOP_OR_CENTER)
-                .setBorderMargin(20f,0f,0f,0f)
+                .setBorderMargin(0f,0f,0f,20f)
             // 设置偏移位置
 //            setOffsetXY(100f, 100f)
             // 设置启用边缘吸附,默认启用
-            setEnableEdgeAdsorption(true)
+            setEnableEdgeAdsorption(false)
             // 设置边缘偏移量
 //            setEdgeOffset(10f)
             // 设置启用悬浮窗可屏幕外回弹
@@ -92,6 +92,7 @@ object FxSystemSimple {
 //                setSaveDirectionImpl(FxConfigStorageToSpImpl(context))
             // 设置启用动画
             setEnableAnimation(true)
+            setEnableOnlyEdgeSlide(true)
             // 设置启用动画实现
             setAnimationImpl(FxAnimationImpl())
             // 设置移动边框
@@ -106,7 +107,7 @@ object FxSystemSimple {
                 MainActivity::class.java,
                 ImmersedActivity::class.java,
             )
-            setEdgeAdsorbDirection(FxAdsorbDirection.CORNERS)
+            setEdgeAdsorbDirection(FxAdsorbDirection.RIGHT)
             // 设置点击事件
             setOnClickListener {
                 Toast.makeText(context, "浮窗被点击", Toast.LENGTH_SHORT).show()

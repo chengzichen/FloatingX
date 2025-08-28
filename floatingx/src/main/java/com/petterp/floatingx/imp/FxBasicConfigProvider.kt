@@ -105,6 +105,10 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
         helper.gravity = gravity
     }
 
+    override fun setEnableOnlyEdgeSlide(isEnable: Boolean) {
+        helper.enableOnlyEdgeSlide=isEnable
+    }
+
     fun moveDefaultLocation(useAnimation: Boolean=false) {
         internalView?.moveDefaultLocation(useAnimation)
     }
@@ -129,6 +133,10 @@ open class FxBasicConfigProvider<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
 
     override fun clearLocationStorage() {
         helper.iFxConfigStorage?.clear()
+    }
+
+    override fun getViewLocation(): Pair<Float, Float>? {
+     return   (internalView as? FxBasicContainerView)?.locationHelper?.getCurrentXY()
     }
 
     override fun setDisplayMode(mode: FxDisplayMode) {
