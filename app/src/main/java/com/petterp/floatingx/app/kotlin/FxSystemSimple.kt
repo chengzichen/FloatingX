@@ -78,8 +78,8 @@ object FxSystemSimple {
                     }.show()
             }
             // 设置悬浮窗默认方向
-            setGravity(FxGravity.TOP_OR_CENTER)
-                .setBorderMargin(0f,0f,0f,20f)
+            setGravity(FxGravity.BOTTOM_OR_CENTER)
+                .setBorderMargin(0f,0f,20f,0f)
             // 设置偏移位置
 //            setOffsetXY(100f, 100f)
             // 设置启用边缘吸附,默认启用
@@ -107,7 +107,7 @@ object FxSystemSimple {
                 MainActivity::class.java,
                 ImmersedActivity::class.java,
             )
-            setEdgeAdsorbDirection(FxAdsorbDirection.RIGHT)
+            setEdgeAdsorbDirection(FxAdsorbDirection.BOTTOM)
             // 设置点击事件
             setOnClickListener {
                 Toast.makeText(context, "浮窗被点击", Toast.LENGTH_SHORT).show()

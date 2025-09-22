@@ -357,7 +357,7 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
                 when (adsorbDirection) {
                     FxAdsorbDirection.LEFT -> {
                         moveBoundary.apply {
-                            maxW = moveIngBoundary.minW + viewW + edgeOffset + fxBorderMargin.l
+                            maxW = moveIngBoundary.minW + edgeOffset + fxBorderMargin.l
                         }
                     }
 
@@ -369,13 +369,13 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
 
                     FxAdsorbDirection.TOP -> {
                         moveBoundary.apply {
-                            maxH = moveIngBoundary.minH + viewH + edgeOffset + fxBorderMargin.t
+                            maxH = moveIngBoundary.minH  + edgeOffset + fxBorderMargin.t
                         }
                     }
 
                     FxAdsorbDirection.BOTTOM -> {
                         moveBoundary.apply {
-                            minH = moveIngBoundary.maxH - edgeOffset - fxBorderMargin.b
+                            minH = moveIngBoundary.maxH - edgeOffset - fxBorderMargin.b- statsBarHeight.toFloat()
                         }
                     }
 

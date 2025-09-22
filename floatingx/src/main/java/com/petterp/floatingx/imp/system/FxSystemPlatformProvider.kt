@@ -65,6 +65,8 @@ class FxSystemPlatformProvider(
             helper.fxLog.d("fx not show,This [${act.javaClass.simpleName}] is not in the list of allowed inserts!")
             return false
         }
+        helper.updateStatsBar(act)
+        helper.updateNavigationBar(act)
         if (_internalView == null) {
             if (act!=null&&!checkAgreePermission(act)) {
                 internalAskAutoPermission(act)
