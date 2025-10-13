@@ -91,10 +91,6 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
 
         basicView?.let { view ->
             ViewCompat.setOnApplyWindowInsetsListener(view) { _, insets ->
-                if (basicView?.isShow() == false) {
-                    this.config.fxLog.d("fxView OnApplyWindowInsetsListener -> basicView not show , return")
-                    return@setOnApplyWindowInsetsListener insets
-                }
                 val isImmersiveMode =
                     insets.isVisible(WindowInsetsCompat.Type.navigationBars()).not()
                 if (basicView?.isNavigationBarHidden == null || basicView?.isNavigationBarHidden != isImmersiveMode) {
@@ -110,18 +106,18 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        if (basicView?.isShow() == false) {
-            this.config.fxLog.d("fxView onMeasure -> basicView not show , return")
-            return
-        }
+//        if (basicView?.isShow() == false) {
+//            this.config.fxLog.d("fxView onMeasure -> basicView not show , return")
+//            return
+//        }
         config.fxLog.d("fxView -> onMeasure: widthMeasureSpec:$widthMeasureSpec,heightMeasureSpec:$heightMeasureSpec")
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
-        if (basicView?.isShow() == false) {
-            this.config.fxLog.d("fxView  onSizeChanged -> basicView not show , return")
-            return
-        }
+//        if (basicView?.isShow() == false) {
+//            this.config.fxLog.d("fxView  onSizeChanged -> basicView not show , return")
+//            return
+//        }
         updateViewSize()
         // 初始化跳过
         if (isInitLocation) return
@@ -157,10 +153,10 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
         oldBottom: Int
     ) {
         if (!needUpdateLocation) return
-        if (basicView?.isShow() == false) {
-            this.config.fxLog.d("fxView  onLayoutChange -> basicView not show , return")
-            return
-        }
+//        if (basicView?.isShow() == false) {
+//            this.config.fxLog.d("fxView  onLayoutChange -> basicView not show , return")
+//            return
+//        }
         updateViewSize()
         checkOrRestoreLocation()
     }
@@ -250,10 +246,10 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
     }
 
     private fun updateViewSize() {
-        if (basicView?.isShow() == false) {
-            this.config.fxLog.d("fxView  updateViewSize -> basicView not show , return")
-            return
-        }
+//        if (basicView?.isShow() == false) {
+//            this.config.fxLog.d("fxView  updateViewSize -> basicView not show , return")
+//            return
+//        }
         val view = basicView ?: return
         val (pW, pH) = view.parentSize() ?: return
         val viewH = view.measuredHeight.toFloat()
@@ -429,7 +425,7 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
             restoreTopStandard = false
             needUpdateLocation = false
             needUpdateConfig = false
-            basicView?.internalMoveToXY(restoreX, restoreY, needUpdateLocation = true)
+            basicView?.internalMoveToXY(restoreX, restoreY, needUpdateLocation = basicView?.isShow() == true)
             config.fxLog.d("fxView -> restoreLocation,success")
         }
     }
