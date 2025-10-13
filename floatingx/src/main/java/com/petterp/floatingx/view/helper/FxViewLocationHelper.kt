@@ -91,6 +91,10 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
 
         basicView?.let { view ->
             ViewCompat.setOnApplyWindowInsetsListener(view) { _, insets ->
+                if (basicView?.isShow() == false) {
+                    this.config.fxLog.d("fxView OnApplyWindowInsetsListener -> basicView not show , return")
+                    return@setOnApplyWindowInsetsListener insets
+                }
                 val isImmersiveMode =
                     insets.isVisible(WindowInsetsCompat.Type.navigationBars()).not()
                 if (basicView?.isNavigationBarHidden == null || basicView?.isNavigationBarHidden != isImmersiveMode) {
