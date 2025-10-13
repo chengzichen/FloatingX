@@ -106,11 +106,18 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
+        if (basicView?.isShow() == false) {
+            this.config.fxLog.d("fxView -> basicView not show , return")
+            return
+        }
         config.fxLog.d("fxView -> onMeasure: widthMeasureSpec:$widthMeasureSpec,heightMeasureSpec:$heightMeasureSpec")
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
+        if (basicView?.isShow() == false) {
+            this.config.fxLog.d("fxView -> basicView not show , return")
+            return
+        }
         updateViewSize()
         // 初始化跳过
         if (isInitLocation) return
@@ -235,6 +242,10 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
     }
 
     private fun updateViewSize() {
+        if (basicView?.isShow() == false) {
+            this.config.fxLog.d("fxView -> basicView not show , return")
+            return
+        }
         val view = basicView ?: return
         val (pW, pH) = view.parentSize() ?: return
         val viewH = view.measuredHeight.toFloat()
@@ -369,13 +380,14 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
 
                     FxAdsorbDirection.TOP -> {
                         moveBoundary.apply {
-                            maxH = moveIngBoundary.minH  + edgeOffset + fxBorderMargin.t
+                            maxH = moveIngBoundary.minH + edgeOffset + fxBorderMargin.t
                         }
                     }
 
                     FxAdsorbDirection.BOTTOM -> {
                         moveBoundary.apply {
-                            minH = moveIngBoundary.maxH - edgeOffset - fxBorderMargin.b- statsBarHeight.toFloat()
+                            minH =
+                                moveIngBoundary.maxH - edgeOffset - fxBorderMargin.b - statsBarHeight.toFloat()
                         }
                     }
 

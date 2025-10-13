@@ -53,7 +53,7 @@ class FxSystemPlatformProvider(
 
     override fun isShow(): Boolean {
         val internalView = _internalView ?: return false
-        return internalView.isAttachToWM && internalView.visibility == View.VISIBLE
+        return internalView.isShow()
     }
 
     override fun checkOrInit(): Boolean {

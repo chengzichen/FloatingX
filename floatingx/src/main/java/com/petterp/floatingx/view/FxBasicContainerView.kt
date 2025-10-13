@@ -39,7 +39,7 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
     abstract fun currentY(): Float
     abstract fun updateXY(x: Float, y: Float)
     abstract fun parentSize(): Pair<Int, Int>?
-
+    abstract fun isShow(): Boolean
     abstract fun onTouchDown(event: MotionEvent)
     abstract fun onTouchMove(event: MotionEvent)
     abstract fun onTouchCancel(event: MotionEvent)
@@ -266,4 +266,7 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
     internal fun preCancelAction() {
         helpers.forEach { it.onPreCancel() }
     }
+
+
+
 }

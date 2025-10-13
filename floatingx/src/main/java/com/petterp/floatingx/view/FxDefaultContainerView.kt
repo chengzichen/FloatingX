@@ -51,6 +51,10 @@ class FxDefaultContainerView(helper: FxBasisHelper, context: Context, attrs: Att
         return parentGroup.width to parentGroup.height
     }
 
+    override fun isShow(): Boolean {
+        return this.isAttachedToWindow && visibility == VISIBLE
+    }
+
     override fun onTouchDown(event: MotionEvent) {
         downTouchX = event.x
         downTouchY = event.y

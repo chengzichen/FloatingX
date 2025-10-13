@@ -90,6 +90,10 @@ class FxSystemContainerView @JvmOverloads constructor(
         return (if (isNavigationBarHidden == true) helper.context.realScreenWidth else helper.context.screenWidth )to helper.context.realScreenHeight
     }
 
+    override fun isShow(): Boolean {
+        return this.isAttachToWM && this.visibility == View.VISIBLE
+    }
+
     override fun dispatchKeyEventPreIme(event: KeyEvent?): Boolean {
         if (isShowKeyBoard && event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_BACK) {
             isShowKeyBoard = false
