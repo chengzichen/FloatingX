@@ -114,11 +114,11 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
+        updateViewSize()
         if (basicView?.isShow() == false) {
             this.config.fxLog.d("fxView  onSizeChanged -> basicView not show , return")
             return
         }
-        updateViewSize()
         // 初始化跳过
         if (isInitLocation) return
         if (needUpdateLocation) {
@@ -153,11 +153,11 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
         oldBottom: Int
     ) {
         if (!needUpdateLocation) return
+        updateViewSize()
         if (basicView?.isShow() == false) {
             this.config.fxLog.d("fxView  onLayoutChange -> basicView not show , return")
             return
         }
-        updateViewSize()
         checkOrRestoreLocation()
     }
 
@@ -246,10 +246,6 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
     }
 
     private fun updateViewSize() {
-        if (basicView?.isShow() == false) {
-            this.config.fxLog.d("fxView  updateViewSize -> basicView not show , return")
-            return
-        }
         val view = basicView ?: return
         val (pW, pH) = view.parentSize() ?: return
         val viewH = view.measuredHeight.toFloat()
