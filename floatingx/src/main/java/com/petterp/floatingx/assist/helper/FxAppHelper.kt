@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import androidx.annotation.IdRes
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.petterp.floatingx.assist.FxScopeType
 import com.petterp.floatingx.listener.IFxPermissionInterceptor
 import com.petterp.floatingx.listener.IFxProxyTagActivityLifecycle

@@ -149,8 +149,8 @@ class FxAppPlatformProvider(
 
     private fun checkOrInitSafeArea(act: Activity) {
         if (!helper.enableSafeArea) return
-        helper.updateStatsBar(act)
-        helper.updateNavigationBar(act)
+//        helper.updateStatsBar(act)
+//        helper.updateNavigationBar(act)
         val fxView = _internalView ?: return
         ViewCompat.setOnApplyWindowInsetsListener(fxView, windowsInsetsListener)
         fxView.requestApplyInsets()
