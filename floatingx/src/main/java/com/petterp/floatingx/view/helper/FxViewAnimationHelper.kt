@@ -56,9 +56,9 @@ class FxViewAnimationHelper : FxViewBasicHelper() {
                                 basicView?.isNearestLeft(endX) == true
                             )
                             basicView?.bringToFront()
-                            basicView?.postDelayed({
+                            basicView?.post {
                                 basicView?.visibility= VISIBLE
-                            },50)
+                            }
                         }
                     }
 
