@@ -238,9 +238,9 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
                 }
             }
             this.containerView.bringToFront()
-            this.containerView?.post{
+            this.containerView?.postDelayed({
                 this.containerView?.visibility= VISIBLE
-            }
+            },50)
             return
         }
         if (useAnimation) {
@@ -253,9 +253,9 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
                 helper.iFxTouchListener?.OnDragEnd(endX, endY,nearestTop,nearestLeft)
             }
             this.containerView.bringToFront()
-            this.containerView?.post{
+            this.containerView?.postDelayed({
                 this.containerView?.visibility= VISIBLE
-            }
+            },50)
         }
         locationHelper.checkOrSaveLocation(endX, endY)
         helper.fxLog.d("fxView -> moveToXY: start($curX,$curY),end($endX,$endY)")
