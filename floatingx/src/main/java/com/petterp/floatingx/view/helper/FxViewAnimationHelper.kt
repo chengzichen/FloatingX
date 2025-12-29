@@ -2,6 +2,7 @@ package com.petterp.floatingx.view.helper
 
 import android.animation.Animator
 import android.animation.ValueAnimator
+import android.view.View.VISIBLE
 import com.petterp.floatingx.util.DEFAULT_MOVE_ANIMATOR_DURATION
 import com.petterp.floatingx.view.FxBasicContainerView
 
@@ -54,6 +55,10 @@ class FxViewAnimationHelper : FxViewBasicHelper() {
                                 basicView?.isNearestTop(endY) == true,
                                 basicView?.isNearestLeft(endX) == true
                             )
+                            basicView?.bringToFront()
+                            basicView?.postDelayed({
+                                basicView?.visibility= VISIBLE
+                            },50)
                         }
                     }
 

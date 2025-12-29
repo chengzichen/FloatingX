@@ -96,18 +96,22 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
 
     override fun updateView(layoutId: Int) {
         helper.fxLog.d("fxView -> updateView")
+        containerView?.post {
+            containerView?.visibility = View.INVISIBLE
+        }
         locationHelper.needUpdateLocation()
         safeRemoveView(_childView)
         installChildView()
-        containerView?.visibility = View.INVISIBLE
     }
 
     override fun updateView(layoutView: View) {
         helper.fxLog.d("fxView -> updateView")
+        containerView?.post {
+            containerView?.visibility = View.INVISIBLE
+        }
         locationHelper.needUpdateLocation()
         safeRemoveView(_childView)
         installChildView()
-        containerView?.visibility = View.INVISIBLE
     }
 
     override fun invokeClick() {
@@ -223,8 +227,6 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
     internal fun internalMoveToXY(endX: Float, endY: Float, useAnimation: Boolean = false,needUpdateLocation:Boolean=false   ) {
         val curX = currentX()
         val curY = currentY()
-        this.containerView.bringToFront()
-        this.containerView?.visibility= VISIBLE
         if (curX == endX && curY == endY&&!needUpdateLocation){
             val nearestTop = isNearestTop(endY)
             val nearestLeft = isNearestLeft(endX)
@@ -234,6 +236,10 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
                 if (helper.enableEdgeAdsorption){
                     helper.iFxTouchListener?.OnDragEnd(endX, endY,nearestTop,nearestLeft)
                 }
+            }
+            this.containerView.bringToFront()
+            this.containerView?.post{
+                this.containerView?.visibility= VISIBLE
             }
             return
         }
@@ -245,6 +251,10 @@ abstract class FxBasicContainerView @JvmOverloads constructor(
                 val nearestTop = isNearestTop(endY)
                 val nearestLeft = isNearestLeft(endX)
                 helper.iFxTouchListener?.OnDragEnd(endX, endY,nearestTop,nearestLeft)
+            }
+            this.containerView.bringToFront()
+            this.containerView?.post{
+                this.containerView?.visibility= VISIBLE
             }
         }
         locationHelper.checkOrSaveLocation(endX, endY)

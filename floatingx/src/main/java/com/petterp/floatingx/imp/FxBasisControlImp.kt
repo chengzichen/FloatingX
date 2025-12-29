@@ -98,6 +98,11 @@ abstract class FxBasisControlImp<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
 
     override fun updateView(@LayoutRes resource: Int) {
         check(resource != INVALID_LAYOUT_ID) { "resource cannot be INVALID_LAYOUT_ID!" }
+        // 检查是否为相同布局ID，如果是则不进行更新
+        if (helper.layoutId == resource) {
+            helper.fxLog.d("fxView -> updateView skipped, same layoutId: $resource")
+            return
+        }
         helper.layoutView = null
         helper.layoutId = resource
         internalView?.updateView(resource)
@@ -113,6 +118,11 @@ abstract class FxBasisControlImp<F : FxBasisHelper, P : IFxPlatformProvider<F>>(
     }
 
     override fun updateView(view: View) {
+        // 检查是否为相同View对象，如果是则不进行更新
+        if (helper.layoutView == view) {
+            helper.fxLog.d("fxView -> updateView skipped, same layoutView object")
+            return
+        }
         helper.layoutId = INVALID_LAYOUT_ID
         helper.layoutView = view
         internalView?.updateView(view)

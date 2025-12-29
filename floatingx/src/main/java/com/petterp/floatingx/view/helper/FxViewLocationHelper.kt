@@ -154,10 +154,10 @@ class FxViewLocationHelper : FxViewBasicHelper(), View.OnLayoutChangeListener {
     ) {
         if (!needUpdateLocation) return
         updateViewSize()
-        if (basicView?.isShow() == false) {
-            this.config.fxLog.d("fxView  onLayoutChange -> basicView not show , return")
-            return
-        }
+//        if (basicView?.isShow() == false) {
+//            this.config.fxLog.d("fxView  onLayoutChange -> basicView not show , return")
+//            return
+//        }
         checkOrRestoreLocation()
     }
 
